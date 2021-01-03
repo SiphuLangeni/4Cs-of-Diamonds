@@ -6,15 +6,17 @@ import pandas
 
 class DiamondsSpider(scrapy.Spider):
 
-    def __init__()
+    def __init__(self):
 
-    self.page_num = page_num
-    self.min_carat = min_carat
-    self.max_carat = max_carat
+        self.page_num = page_num
+        self.min_carat = min_carat
+        self.max_carat = max_carat
 
     name = 'diamonds'
     allowed_domains = ['brilliantearth.com/loose-diamonds/list/']
-    start_urls = [f'brilliantearth.com/loose-diamonds/list/']
+    start_urls = [
+        f'brilliantearth.com/loose-diamonds/list/?shapes=Round&min_carat={self.min_carat}&max_carat={self.max_carat}&page={self.page_num}'
+    ]
 
 
     def parse(self, response):
