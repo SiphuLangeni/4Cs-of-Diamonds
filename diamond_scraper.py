@@ -127,4 +127,21 @@ class Diamonds:
 
     
     
-            
+    def save_csv(self, filename):
+        
+        header = [
+            'upc', 'cut', 'colour', 'clarity', 'carat', 'x', 'y', 'z', 'lw_ratio', 'depth', 'table', 'girdle', \
+            'culet', 'fluorescence', 'polish', 'symmetry', 'report', 'origin', 'certificate_number', 'price'
+        ]
+        
+        rows = zip(
+            self.upc, self.cut, self.colour, self.clarity, self.carat, self.x, self.y, self.z, \
+            self.lw_ratio, self.depth, self.table, self.girdle, self.culet, self.fluorescence, \
+            self.polish, self.symmetry, self.report, self.origin, self.certificate_number, self.price
+        )
+        
+        with open(filename, 'w', newline='') as csv_file:
+            writer = csv.writer(csv_file, quoting=csv.QUOTE_NONNUMERIC)
+            writer.writerow(header)
+            for row in rows:
+                writer.writerow(row)
