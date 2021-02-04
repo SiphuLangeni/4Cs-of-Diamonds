@@ -14,4 +14,5 @@ six==1.15.0
 starlette==0.13.6
 threadpoolctl==2.1.0
 uvicorn==0.13.3
-uvloop
+uvloop==0.14.0
+httpstools==0.1.1
