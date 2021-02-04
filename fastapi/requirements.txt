@@ -9,7 +9,7 @@ pydantic==1.7.3
 python-dateutil==2.8.1
 pytz==2021.1
 scikit-learn==0.24.1
-scipy==1.6.0
+scipy==1.5.4
 six==1.15.0
 starlette==0.13.6
 threadpoolctl==2.1.0
