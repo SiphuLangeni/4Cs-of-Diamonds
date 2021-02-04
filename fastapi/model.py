@@ -19,7 +19,7 @@ class Diamond(BaseModel):
 class DiamondModel:
     
     def __init__(self):
-        self.df = pd.read_csv('diamonds.csv')
+        self.df = pd.read_csv('bling.csv')
         self.model_fname = 'diamond_model.pkl'
         try:
             self.model = joblib.load(self.model_fname)
@@ -61,7 +61,6 @@ class DiamondModel:
         mae = mean_absolute_error(y_test, y_pred)
         mape = np.mean(np.abs((y_test - y_pred) / y_test)) * 100
         rmse = mean_squared_error(y_test, y_pred, squared=False)
-        # rmspe = rmse / y_test.mean()
         rmspe = np.sqrt(np.mean(np.square((y_test - y_pred) / y_test))) * 100
         
         return mae, mape, rmse, rmspe
