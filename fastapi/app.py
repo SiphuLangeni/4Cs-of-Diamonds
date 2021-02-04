@@ -7,6 +7,10 @@ app = FastAPI()
 model = DiamondModel()
 
 
+@app.get('/')
+def index():
+    return {'message': 'Diamond Price Prediction is ready.'}
+
 @app.post('/predict')
 def predict_price(diamond: Diamond):
     diamond = diamond.dict()
