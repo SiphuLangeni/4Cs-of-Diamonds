@@ -6,11 +6,9 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_absolute_error, mean_squared_error
 
 
-df = pd.read_csv('bling.csv')
-
 st.title('Diamond Price Prediction')
 
-st.write('Have fun predicting the price of your diamond!')
+st.write('Have fun predicting the price of your diamond :sunglasses:!')
 
 st.sidebar.write('Choose your hyperparameters.')
 
@@ -39,7 +37,10 @@ clarity_dict = {'SI2': 0,'SI1': 1, 'VS2': 2, 'VS1': 3, 'VVS2': 4, 'VVS1':5, 'IF'
 carat = st.sidebar.slider('Carat weight', 0.25, 1.00)
 
 
-def split_data(df):
+@st.cache
+def split_data():
+
+    df = pd.read_csv('bling.csv')
        
     X = df[['cut', 'colour', 'clarity', 'carat']].copy()
     y = df.price
@@ -50,7 +51,7 @@ def split_data(df):
     
     return X_train, X_test, y_train, y_test
 
-X_train, X_test, y_train, y_test = split_data(df)
+X_train, X_test, y_train, y_test = split_data()
 
 
 def train_model(n_estimators, max_depth):
