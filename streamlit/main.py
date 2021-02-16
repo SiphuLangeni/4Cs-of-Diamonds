@@ -5,48 +5,90 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_absolute_error, mean_squared_error
 
+# Title
+st.markdown('# Diamond Price Prediction')
+st.markdown('---')
+st.markdown('##')
 
-st.markdown("<h1 style='text-align: center; '>Diamond Price Prediction</h1>", unsafe_allow_html=True)
+# Introduction
+col1, col2 = st.beta_columns([2, 3])
 
-# st.image('diamonds01.jpg', use_column_width=True)
+with col1:
+    st.image('diamonds01.jpg', use_column_width=True)
+with col2:
+    st.markdown('###')
+    st.markdown('''
+    The price of a diamond depends on its  
+    *cut*, *colour*, *clarity* and *carat weight*,  
+      
+    a.k.a. the **4Cs of Diamonds**.
+    ''')
+st.markdown('##')
 
-# st.image('carat-weight.jpg')
+# Header
+st.markdown('## Predict round cut diamond prices in **_real_** time!')
 
-st.markdown('''
-The price of diamonds is largely dependent on the *cut, colour, clarity* and *carat weight*  
-a.k.a. the **4Cs of Diamonds**.  
-
-This simple app allows you to predict the price of round cut diamonds.
-''')
-
-# st.sidebar.write('Choose your hyperparameters.')
-
-# n_estimators = st.sidebar.slider('n_estimators', 1, 100)
-# max_depth = st.sidebar.slider('max_depth', 1, 10)
-
-st.write('Select an option from each of the four to get your prediction.')
-
+# Selection criteria
+# Cut
 st.markdown('### Cut')
+
 cut = st.selectbox(
     'Select a colour from the dropdown menu', 
     ('Fair', 'Good', 'Very Good', 'Ideal', 'Super Ideal')
 )
+
 cut_dict = {'Fair': 0, 'Good': 1, 'Very Good': 2, 'Ideal': 3, 'Super Ideal': 4}
+
+with st.beta_expander("Learn more about cut quality"):
+    st.markdown("""
+        ### Cut refers to the quality of the cut of the diamond.  
+
+        Superior cuts will reflect the most light back giving a sense of 
+        brilliance, fire and sparkle! Cut is arguably the most difficult to 
+        measure. The grade is given from a combination of interplay of many 
+        proportions and individual characteristics.
+    """)
+    st.markdown('#')
+    st.image('diamond_cut.png', use_column_width=True)
+    st.markdown('#')
+
+# Colour
 st.markdown('### Colour')
+
 colour = st.selectbox(
     'Select a cut from the dropdown menu', 
     ('J', 'I', 'H', 'G', 'F', 'E', 'D')
 )
+
 colour_dict = {'J': 0, 'I': 1, 'H': 2, 'G': 3, 'F': 4, 'E': 5, 'D': 6}
 
+with st.beta_expander("Learn more about colour grade"):
+    st.markdown("""
+        ### Colour refers to how clear a diamond is.  
+
+        A completely colourless diamond is the most rare and has a colour grade of **D**.  
+        As the letter increases, the diamond will begin to have more yellowish hues.  
+
+        This app allows you to choose diamonds with a color grade from  
+        slightly tinted (**J**) to colourless (**D**).
+    """)
+    st.markdown('#')
+    st.image('diamond_colour.jpg', output_format='JPEG', use_column_width=True)
+    st.markdown('#')
+
+# Clarity
 st.markdown('### Clarity')
+
 clarity = st.selectbox(
     'Select a clarity from the dropdown menu',
     ('SI2', 'SI1', 'VS2', 'VS1', 'VVS2', 'VVS1', 'IF', 'FL')
 )
-with st.beta_expander("Clarity explanation"):
+
+clarity_dict = {'SI2': 0, 'SI1': 1, 'VS2': 2, 'VS1': 3, 'VVS2': 4, 'VVS1':5, 'IF': 6, 'FL': 7}
+
+with st.beta_expander("Learn more about clarity"):
     st.markdown("""
-        ### The amount of inclusions and blemishes  
+        ### Clarity refers to the amount of inclusions and blemishes  
         
         • Slightly Included (**SI2, SI1**)  
         *Inclusions noticible under 10x magnification*  
@@ -63,33 +105,32 @@ with st.beta_expander("Clarity explanation"):
         • Flawless (**FL**)  
         *Inclusions or blemishes not visible under 10x magnification*  
     """)
+    st.markdown('#')
     st.image('clarity_range.png', use_column_width=True)
-clarity_dict = {'SI2': 0,'SI1': 1, 'VS2': 2, 'VS1': 3, 'VVS2': 4, 'VVS1':5, 'IF': 6, 'FL': 7}
+    st.markdown('#')
+    
 
+# Carat
 st.markdown('### Carat')
+
 carat = st.slider('Select a carat weight on the slider', 0.25, 1.00)
-with st.beta_expander("Carat weight explanation"):
+
+with st.beta_expander("Learn more about carat weight"):
     st.markdown("""
-        ### The amount of inclusions and blemishes  
-        
-        • Slightly Included (**SI2, SI1**)  
-        *Inclusions noticible under 10x magnification*  
+        ### Carat refers to the weight of the diamond.  
 
-        • Very Slightly Included (**VS2, VS1**)  
-        *Minor inclusions observed with effort under 10x magnification*  
-
-        • Very, Very Slightly Included (**VVS2, VVS1**)  
-        *Inclusions difficult for a skilled grader to see under 10x magnification*  
-
-        • Internally Flawless (**IF**)  
-        *No inclusions visible under 10x magnification*  
-
-        • Flawless (**FL**)  
-        *Inclusions or blemishes not visible under 10x magnification*  
+        One carat is about 0.2 grams. Heavier diamonds are much more rare.
+        As the carat weight increases, so does the price. The increase in 
+        price is not proportionate to the increase in carat weight. A 1 
+        carat diamond will be more than double the price of a 0.5 carat 
+        diamond, all other things held equal.
     """)
-    # st.image('carat_weight.jpg')
+    st.markdown('#')
+    st.image('carat_weight.jpg', output_format='JPEG')
+    st.markdown('#')
 
-
+st.markdown('#')
+st.markdown('#')
 
 
 @st.cache
@@ -136,11 +177,7 @@ def get_metrics():
 
 mae, mape, rmse, rmspe = get_metrics()
 
-# st.write(f'MAE: ${mae:.2f}')
-# st.write(f'MAPE: {mape:.2f}')
-# st.write(f'RMSE: ${rmse:.2f}')
-# st.write(f'RMSPE: {rmspe:.2f}')
-
+#Prediction function
 def predict_price(cut, colour, clarity, carat):
         
     diamond_specs = [[cut, colour, clarity, carat]]
@@ -152,46 +189,9 @@ prediction = predict_price(
     cut_dict[cut], colour_dict[colour], clarity_dict[clarity], carat
 )
 
-def make_html(htag, alignment, text):
-    '''Changes text to html for annotation widget user interface.
-    :param text: Text for conversion to html.
-    :type text: str
-    :returns: HTML snippet
-    :rtype: str
-    '''
-    # html = '"' + f"<{htag} style='text-align: {alignment};'>{text}</{htag}>" + '"'
-    html = '"' + '<' + htag + " style='text-align: " + alignment + ";'>" + text + '</' + htag + '>' + '"'
-    return html
-
-test = make_html('h1', 'center', str(prediction))
-st.markdown(make_html('h1', 'center', str(prediction)))
-st.write(type(test))
-
-# st.write(f'{carat} carat weight')
-# st.write(f'Cut:\t{cut}')
-# st.write(f'{colour} colour')
-# st.write(f'{clarity} clarity')
-# st.write(f'is approximately')
-# st.title(f'${prediction:,.2f}')
-
-st.markdown("<h2 style='text-align: center;'>The diamond you selected is approximately</h2>", unsafe_allow_html=True)
-
-col1, col2, col3, col4 = st.beta_columns(4)
-with col1:
-    st.markdown("<h3 style='text-align: center; '>Cut</h3>", unsafe_allow_html=True)
-    st.markdown("<h2 style='text-align: center; '>Cut</h2>", unsafe_allow_html=True)
-with col2:
-    st.markdown("<h3 style='text-align: center; '>Color</h3>", unsafe_allow_html=True)
-    st.markdown("<h2 style='text-align: center; '>Color</h2>", unsafe_allow_html=True)
-
-with col3:
-    st.markdown("<h3 style='text-align: center; '>Clarity</h3>", unsafe_allow_html=True)
-    st.markdown("<h2 style='text-align: center; '>Clarity</h2>", unsafe_allow_html=True)
-
-with col4:
-    st.markdown("<h3 style='text-align: center; '>Carat</h3>", unsafe_allow_html=True)
-    st.markdown("<h2 style='text-align: center; '>Carat</h2>", unsafe_allow_html=True)
-
-st.markdown("<h2 style='text-align: center; '>is approximately</h2>", unsafe_allow_html=True)
-# st.markdown(style='text-align: center;' make_html(test), unsafe_allow_html=True)
-
+# Live prediction
+st.markdown('## The diamond you selected is approximately')
+st.title(f'$ {prediction:,.2f}')
+st.write('Price reported in CAD')
+st.text('')
+st.write(f'Cut: {cut} | Colour: {colour} | Clarity: {clarity} | Carat: {carat}')
