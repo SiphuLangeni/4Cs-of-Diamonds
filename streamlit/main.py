@@ -14,7 +14,7 @@ st.markdown('##')
 col1, col2 = st.beta_columns([2, 3])
 
 with col1:
-    st.image('diamonds01.jpg', use_column_width=True)
+    st.image('Images/diamonds.jpg', use_column_width=True)
 with col2:
     st.markdown('###')
     st.markdown('''
@@ -49,7 +49,7 @@ with st.beta_expander("Learn more about cut quality"):
         proportions and individual characteristics.
     """)
     st.markdown('#')
-    st.image('diamond_cut.png', use_column_width=True)
+    st.image('Images/diamond_cut.png', use_column_width=True)
     st.markdown('#')
 
 # Colour
@@ -73,7 +73,7 @@ with st.beta_expander("Learn more about colour grade"):
         slightly tinted (**J**) to colourless (**D**).
     """)
     st.markdown('#')
-    st.image('diamond_colour.jpg', output_format='JPEG', use_column_width=True)
+    st.image('Images/diamond_colour.jpg', output_format='JPEG', use_column_width=True)
     st.markdown('#')
 
 # Clarity
@@ -106,7 +106,7 @@ with st.beta_expander("Learn more about clarity"):
         *Inclusions or blemishes not visible under 10x magnification*  
     """)
     st.markdown('#')
-    st.image('clarity_range.png', use_column_width=True)
+    st.image('Images/diamond_clarity.png', use_column_width=True)
     st.markdown('#')
     
 
@@ -126,7 +126,7 @@ with st.beta_expander("Learn more about carat weight"):
         diamond, all other things held equal.
     """)
     st.markdown('#')
-    st.image('carat_weight.jpg', output_format='JPEG')
+    st.image('Images/diamond_carat.jpg', output_format='JPEG')
     st.markdown('#')
 
 st.markdown('#')
