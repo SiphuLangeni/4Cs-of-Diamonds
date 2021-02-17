@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 from sklearn.ensemble import RandomForestRegressor
 import joblib
+import optuna
 
 # Title
 st.markdown('# Diamond Price Prediction')
