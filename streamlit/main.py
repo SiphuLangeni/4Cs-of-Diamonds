@@ -2,8 +2,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 from sklearn.ensemble import RandomForestRegressor
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import mean_absolute_error, mean_squared_error
+import joblib
 
 # Title
 st.markdown('# Diamond Price Prediction')
@@ -134,48 +133,29 @@ st.markdown('#')
 
 
 @st.cache
-def split_data():
+def create_dataset():
 
     df = pd.read_csv('bling.csv')
        
-    X = df[['cut', 'colour', 'clarity', 'carat']].copy()
-    y = df.price
+    X = df[['cut', 'colour', 'clarity', 'carat']].values
+    y = df.price.values
 
-    X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=0.2, random_state=0
-    )
-    
-    return X_train, X_test, y_train, y_test
+    return X, y
 
-X_train, X_test, y_train, y_test = split_data()
+X, y = create_dataset()
 
 
 def train_model():
-        
-    rf = RandomForestRegressor(
-        n_estimators=65,
-        max_depth=5,
-        bootstrap=True,
-        random_state=0
-    )
-    model = rf.fit(X_train, y_train)
+
+    rf = RandomForestRegressor(n_jobs=-1, random_state=0)
+    study = joblib.load('diamond_rf.pkl')
+    rf.set_params(**study.best_params)
+    model = rf.fit(X, y)
     
     return model
 
 model = train_model()
 
-def get_metrics():
-   
-    y_pred = model.predict(X_test)
-
-    mae = mean_absolute_error(y_test, y_pred)
-    mape = np.mean(np.abs((y_test - y_pred) / y_test)) * 100
-    rmse = mean_squared_error(y_test, y_pred, squared=False)
-    rmspe = np.sqrt(np.mean(np.square((y_test - y_pred) / y_test))) * 100
-    
-    return mae, mape, rmse, rmspe
-
-mae, mape, rmse, rmspe = get_metrics()
 
 #Prediction function
 def predict_price(cut, colour, clarity, carat):
