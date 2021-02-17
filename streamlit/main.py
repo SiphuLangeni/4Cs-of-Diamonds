@@ -135,7 +135,7 @@ st.markdown('#')
 @st.cache
 def create_dataset():
 
-    df = pd.read_csv('bling.csv')
+    df = pd.read_csv('streamlit/bling.csv')
        
     X = df[['cut', 'colour', 'clarity', 'carat']].values
     y = df.price.values
@@ -148,7 +148,7 @@ X, y = create_dataset()
 def train_model():
 
     rf = RandomForestRegressor(n_jobs=-1, random_state=0)
-    study = joblib.load('diamond_rf.pkl')
+    study = joblib.load('streamlit/diamond_rf.pkl')
     rf.set_params(**study.best_params)
     model = rf.fit(X, y)
     
