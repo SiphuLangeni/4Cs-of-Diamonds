@@ -48,7 +48,7 @@ with st.beta_expander("Learn more about cut quality"):
         proportions and individual characteristics.
     """)
     st.markdown('#')
-    st.image('Images/diamond_cut.png', use_column_width=True)
+    st.image('streamlit/Images/diamond_cut.png', use_column_width=True)
     st.markdown('#')
 
 # Colour
@@ -72,7 +72,7 @@ with st.beta_expander("Learn more about colour grade"):
         slightly tinted (**J**) to colourless (**D**).
     """)
     st.markdown('#')
-    st.image('Images/diamond_colour.jpg', output_format='JPEG', use_column_width=True)
+    st.image('streamlit/Images/diamond_colour.jpg', output_format='JPEG', use_column_width=True)
     st.markdown('#')
 
 # Clarity
@@ -105,7 +105,7 @@ with st.beta_expander("Learn more about clarity"):
         *Inclusions or blemishes not visible under 10x magnification*  
     """)
     st.markdown('#')
-    st.image('Images/diamond_clarity.png', use_column_width=True)
+    st.image('streamlit/Images/diamond_clarity.png', use_column_width=True)
     st.markdown('#')
     
 
@@ -125,7 +125,7 @@ with st.beta_expander("Learn more about carat weight"):
         diamond, all other things held equal.
     """)
     st.markdown('#')
-    st.image('Images/diamond_carat.jpg', output_format='JPEG')
+    st.image('streamlit/Images/diamond_carat.jpg', output_format='JPEG')
     st.markdown('#')
 
 st.markdown('#')
