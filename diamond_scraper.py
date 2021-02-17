@@ -7,9 +7,9 @@ logging.basicConfig(format='%(message)s', level=logging.INFO)
 logger = logging.getLogger()
 
 
-class Diamonds:
+class DiamondScraper:
     
-    def __init__(self, page_num=1, min_carat=0.25, max_carat=13.0):
+    def __init__(self, page_num=1, min_carat=0.25, max_carat=5.01):
 
         self.page_num = page_num
         self.min_carat = min_carat
@@ -25,20 +25,20 @@ class Diamonds:
         self.colour = []
         self.clarity = []
         self.carat = []
-        self.x = []
-        self.y = []
-        self.z = []
-        self.lw_ratio = []
-        self.depth = []
-        self.table = []
-        self.girdle = []
-        self.culet = []
-        self.fluorescence = []
-        self.polish = []
-        self.symmetry = []
+        # self.x = []
+        # self.y = []
+        # self.z = []
+        # self.lw_ratio = []
+        # self.depth = []
+        # self.table = []
+        # self.girdle = []
+        # self.culet = []
+        # self.fluorescence = []
+        # self.polish = []
+        # self.symmetry = []
         self.report = []
-        self.origin = []
-        self.certificate_number = []
+        # self.origin = []
+        # self.certificate_number = []
         self.price = []
 
     
@@ -72,25 +72,25 @@ class Diamonds:
                 self.colour.append(diamond['color'])
                 self.clarity.append(diamond['clarity'])
                 self.carat.append(diamond['carat'])
-                measurements = diamond['measurements'].split(' x ')
-                x = float(measurements[0])
-                y = float(measurements[1])
-                z = float(measurements[2])
-                lw_ratio = round(x / y, 4)
-                self.x.append(x)
-                self.y.append(y)
-                self.z.append(z)
-                self.lw_ratio.append(lw_ratio)
-                self.depth.append(diamond['depth'])
-                self.table.append(diamond['table'])
-                self.girdle.append(diamond['girdle'])
-                self.culet.append(diamond['culet'])
-                self.fluorescence.append(diamond['fluorescence'])
-                self.polish.append(diamond['polish'])
-                self.symmetry.append(diamond['symmetry'])
+                # measurements = diamond['measurements'].split(' x ')
+                # x = float(measurements[0])
+                # y = float(measurements[1])
+                # z = float(measurements[2])
+                # lw_ratio = round(x / y, 4)
+                # self.x.append(x)
+                # self.y.append(y)
+                # self.z.append(z)
+                # self.lw_ratio.append(lw_ratio)
+                # self.depth.append(diamond['depth'])
+                # self.table.append(diamond['table'])
+                # self.girdle.append(diamond['girdle'])
+                # self.culet.append(diamond['culet'])
+                # self.fluorescence.append(diamond['fluorescence'])
+                # self.polish.append(diamond['polish'])
+                # self.symmetry.append(diamond['symmetry'])
                 self.report.append(diamond['report'])
-                self.origin.append(diamond['origin'])
-                self.certificate_number.append(diamond['certificate_number'])
+                # self.origin.append(diamond['origin'])
+                # self.certificate_number.append(diamond['certificate_number'])
                 self.price.append(diamond['price'])
                 self.current_records += 1
                 self.total_records += 1
@@ -130,14 +130,12 @@ class Diamonds:
     def save_csv(self, filename):
         
         header = [
-            'upc', 'cut', 'colour', 'clarity', 'carat', 'x', 'y', 'z', 'lw_ratio', 'depth', 'table', 'girdle', \
-            'culet', 'fluorescence', 'polish', 'symmetry', 'report', 'origin', 'certificate_number', 'price'
+            'upc', 'cut', 'colour', 'clarity', 'carat', 'report', 'price'
         ]
         
         rows = zip(
-            self.upc, self.cut, self.colour, self.clarity, self.carat, self.x, self.y, self.z, \
-            self.lw_ratio, self.depth, self.table, self.girdle, self.culet, self.fluorescence, \
-            self.polish, self.symmetry, self.report, self.origin, self.certificate_number, self.price
+            self.upc, self.cut, self.colour, self.clarity, self.carat,
+            self.report, self.price
         )
         
         with open(filename, 'w', newline='') as csv_file:
@@ -145,3 +143,12 @@ class Diamonds:
             writer.writerow(header)
             for row in rows:
                 writer.writerow(row)
+
+
+if __name__=='__main__':
+
+    bling = DiamondScraper()
+    bling.get_diamonds()
+    bling.save_csv('new_diamonds.csv')
+
+
