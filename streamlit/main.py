@@ -13,7 +13,7 @@ st.markdown('##')
 col1, col2 = st.beta_columns([2, 3])
 
 with col1:
-    st.image('Images/diamonds.jpg', use_column_width=True)
+    st.image('streamlit/Images/diamonds.jpg', use_column_width=True)
 with col2:
     st.markdown('###')
     st.markdown('''
